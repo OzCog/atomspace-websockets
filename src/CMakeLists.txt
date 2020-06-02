@@ -16,22 +16,18 @@ FIND_PACKAGE(ZLIB REQUIRED)
 #libuv
 FIND_PACKAGE(libuv REQUIRED)
 
-FIND_LIBRARY(BIOSCIENCE_LIB NAME libbioscience-types.dylib PATHS /usr/local/lib/opencog
+FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
+
+FIND_LIBRARY(BIOSCIENCE_LIB
+        NAME libbioscience-types.dylib libbioscience-types.so
+        PATHS /usr/local/lib/opencog
         NO_DEFAULT_PATH)
-
-FIND_LIBRARY(LOAD_SCM NAME libload_scm.dylib PATHS /usr/local/lib/opencog NO_DEFAULT_PATH)
-
 
 #uSocket
-FIND_LIBRARY(uSOCKET_LIB uSockets.a PATHS /usr/local/lib NO_DEFAULT_PATH)
+FIND_LIBRARY(uSOCKET_LIB
+        NAME uSockets.a
+        PATHS /usr/local/lib NO_DEFAULT_PATH)
 
-
-FIND_LIBRARY(BIOSCIENCE_LIB NAME libbioscience-types.dylib PATHS /usr/local/lib/opencog
-        NO_DEFAULT_PATH)
-
-FIND_LIBRARY(LOAD_SCM NAME libload_scm.dylib PATHS /usr/local/lib/opencog NO_DEFAULT_PATH)
-
-FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
 
 # Set default include paths.
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}
@@ -49,8 +45,8 @@ TARGET_LINK_LIBRARIES(${BINARY}_lib
         ${ATOMSPACE_atomspace_LIBRARY}
         ${ATOMSPACE_value_LIBRARY}
         ${ATOMSPACE_truthvalue_LIBRARY}
+        ${ATOMSPACE_persist_LIBRARY}
         ${Boost_LIBRARIES}
-        ${LOAD_SCM}
         ${BIOSCIENCE_LIB}
         ${ZLIB_LIBRARIES}
         ${LIBUV}
