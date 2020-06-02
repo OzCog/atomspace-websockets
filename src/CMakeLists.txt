@@ -62,7 +62,6 @@ TARGET_LINK_LIBRARIES(atom_server
         ${ATOMSPACE_value_LIBRARY}
         ${ATOMSPACE_truthvalue_LIBRARY}
         ${Boost_LIBRARIES}
-        ${LOAD_SCM}
         ${BIOSCIENCE_LIB}
         ${ZLIB_LIBRARIES}
         ${LIBUV}
