@@ -13,6 +13,7 @@
 
 
 #include "AtomSpaceManager.h"
+#include "Timer.h"
 
 void AtomSpaceManager::loadAtomSpace(const std::string& fname, const std::string& id) {
     //Check if the id exists
@@ -113,7 +114,11 @@ void AtomSpaceManager::loadFromSettings(const std::string &fname) {
     fstream >> inputJson;
 
     for(const auto& j : inputJson) {
+        Timer timer;
+        std::cout << "Loading Atomspace " << j["id"] << " in dir " << j["pathDir"];
         loadDirectory(j["pathDir"], j["id"]);
+        std::cout << "Atomspace " << j["id"] << " loaded in " << timer.elapsed();
+
     }
 
 }
