@@ -1,0 +1,3 @@
+LINK_LIBRARIES(atomspace atomspace_server_lib)
+
+ADD_CXXTEST(AtomSpaceManagerUTest)

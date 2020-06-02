@@ -1,0 +1,37 @@
+
+
+#include <nlohmann/json.hpp>
+#include "../../src/manager/AtomSpaceManager.h"
+#include <cxxtest/TestSuite.h>
+
+using json = nlohmann::json;
+
+class AtomSpaceManagerUTest : public CxxTest::TestSuite
+{
+private:
+    AtomSpaceManager _atomSpaceManager;
+
+public:
+    AtomSpaceManagerUTest() {
+        logger().set_print_to_stdout_flag(true);
+    }
+
+    void setUp() {}
+
+    void tearDown() {}
+
+    void test_loadFromSettings();
+};
+
+void AtomSpaceManagerUTest::test_loadFromSettings() {
+
+    logger().info("BEGIN TEST: %s", __FUNCTION__);
+
+    _atomSpaceManager.loadFromSettings("manager/settings.json");
+
+    //Verify the atomspaces are loaded properly
+    TS_ASSERT_EQUALS("asp1", _atomSpaceManager.getAtomspaces()[0])
+    logger().info("Atomspace size: %d", _atomSpaceManager.getAtomspace("asp1")->get_size());
+
+    logger().info("END TEST: %s", __FUNCTION__);
+}
