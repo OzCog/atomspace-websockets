@@ -4,11 +4,8 @@
 
 #include <opencog/atoms/base/Handle.h>
 #include <opencog/atoms/base/Node.h>
-#include <opencog/bioscience/types/atom_types.h>
-#include <opencog/atoms/value/QueueValue.h>
 #include <opencog/persist/file/fast_load.h>
 #include <stdexcept>
-#include <fstream>
 #include <algorithm>
 
 
