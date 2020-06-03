@@ -64,17 +64,12 @@ void addServer(const std::string& fname) {
                             std::cout << "Connection closed to Atomspace " << id << std::endl;
                             /* You may access ws->getUserData() here */
                         }
-                }).listen(9001, [](auto *listenSocket) {
-                    if (listenSocket) {
-                        std::cout << "Thread " << std::this_thread::get_id() << " listening on port " << 9001
-                                  << std::endl;
-                    }  else {
-                        std::cout << "Thread " << std::this_thread::get_id() << " failed to listen on port 9001" << std::endl;
-                    }
-                }).run();
+                }).listen(9001, [](auto *listenSocket) {}).run();
             }
         });
     });
+
+    std::cout << "Listening on port 9001" << std::endl;
     std::for_each(threads.begin(), threads.end(), [](const ThreadPtr &t) {
         t->join();
     });
