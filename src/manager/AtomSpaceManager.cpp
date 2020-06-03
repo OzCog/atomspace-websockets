@@ -82,7 +82,7 @@ std::vector<std::string> AtomSpaceManager::executePattern(const std::string& id,
 
     auto queueVal = std::dynamic_pointer_cast<Atom>(valPtr);
     std::vector<std::string> result;
-    std::ostringstream ostream;
+
     for(auto& r: queueVal->getOutgoingSet()){
         result.push_back(r->to_string());
     }

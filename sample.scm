@@ -1,23 +1,27 @@
 (EvaluationLink
   (Predicate "is_part")
-  (Concept "A")
-  (Concept "B")
+  (List
+    (Concept "A")
+    (Concept "B"))
 )
 
 (EvaluationLink
   (Predicate "is_part")
-  (Concept "A")
-  (Concept "C")
+    (List
+      (Concept "A")
+      (Concept "C"))
 )
 
 (EvaluationLink
   (Predicate "is_part")
-  (Concept "C")
-  (Concept "D")
+    (List
+      (Concept "C")
+      (Concept "D"))
 )
 
 (EvaluationLink
   (Predicate "is_part")
-  (Concept "A")
-  (Concept "E")
+    (List
+      (Concept "A")
+      (Concept "E"))
 )
