@@ -20,11 +20,6 @@ FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
 
 FIND_LIBRARY(BIOSCIENCE_LIB
         NAME libbioscience-types.dylib libbioscience-types.so
-        PATHS ${CMAKE_INSTALL_PREFIX}/opencog
-        NO_DEFAULT_PATH)
-
-FIND_LIBRARY(PERSIST_FILE
-        NAME libload_scm.dylib libload_scm.so
         PATHS ${CMAKE_INSTALL_PREFIX}/lib/opencog
         NO_DEFAULT_PATH)
 
@@ -32,7 +27,7 @@ FIND_LIBRARY(PERSIST_FILE
 #uSocket
 FIND_LIBRARY(uSOCKET_LIB
         NAME uSockets.a
-        PATHS ${CMAKE_INSTALL_PREFIX} NO_DEFAULT_PATH)
+        PATHS ${CMAKE_INSTALL_PREFIX}/lib NO_DEFAULT_PATH)
 
 
 # Set default include paths.
@@ -67,7 +62,7 @@ TARGET_LINK_LIBRARIES(atom_server
         ${ATOMSPACE_atomspace_LIBRARY}
         ${ATOMSPACE_value_LIBRARY}
         ${ATOMSPACE_truthvalue_LIBRARY}
-        ${PERSIST_FILE}
+        ${ATOMSPACE_persist_file_LIBRARY}
         ${Boost_LIBRARIES}
         ${ZLIB_LIBRARIES}
         ${LIBUV}
