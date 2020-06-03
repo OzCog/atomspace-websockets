@@ -1,4 +1,4 @@
-#AtomSpace Server
+# AtomSpace Server
 
 This project provides a Websockets access to the OpenCog [AtomSpace](https://github.com/opencog/atomspace) to execute
  pattern matching queries. It also allows users to create multiple atomspaces and access them separately. Users can
@@ -63,9 +63,9 @@ This will create to AtomSpaces with ids`asp1` & `asp2` and can be accessed via W
     </html>
 ```
 
-###Building and Installation
+### Building and Installation
 
-####1. Requirements:
+#### 1. Requirements:
 
 This project depends on the following libraries:
 
@@ -78,7 +78,7 @@ This project depends on the following libraries:
    - [Agi-bio](https://github.com/opencog/agi-bio) - this is OPTIONAL and will be required if you are working with
     bio related atomspace
     
-####2. Building
+#### 2. Building
 
 ```bash
 $ cd atomspace_server
@@ -88,7 +88,7 @@ $ make
 $ make install
 ```
    
-###Note
+### Note
 
 This project is inspired by the already existing [CogServer](https://github.com/opencog/cogserver). However
 , this project is intended provide to a very simple, high-level access to the AtomSpace to run pattern matching queries
