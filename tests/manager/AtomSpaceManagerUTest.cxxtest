@@ -27,7 +27,7 @@ void AtomSpaceManagerUTest::test_loadFromSettings() {
 
     logger().info("BEGIN TEST: %s", __FUNCTION__);
 
-    _atomSpaceManager.loadFromSettings("manager/settings.json");
+    _atomSpaceManager.loadFromSettings("../tests/manager/settings.json");
 
     //Verify the atomspaces are loaded properly
     TS_ASSERT_EQUALS("asp1", _atomSpaceManager.getAtomspaces()[0])

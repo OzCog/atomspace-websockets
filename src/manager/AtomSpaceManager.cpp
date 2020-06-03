@@ -37,6 +37,7 @@ void AtomSpaceManager::loadDirectory(const std::string& dirname, const std::stri
     AtomSpacePtr atomspace = std::make_shared<AtomSpace>();
     if(fs::exists(p)){
         for(fs::directory_entry& entry : fs::directory_iterator(p)){
+            std::cout << "Parsing " << entry.path().string() << std::endl;
            load_file(entry.path().string(), *atomspace);
            _atomspaceMap.insert({id, atomspace});
            _atomIds.push_back(id);
@@ -79,15 +80,12 @@ std::vector<std::string> AtomSpaceManager::executePattern(const std::string& id,
     std::endl;
     ValuePtr valPtr = h->execute(atomspace.get());
 
-    std::queue<ValuePtr> queueVal = std::dynamic_pointer_cast<QueueValue>(valPtr)->wait_and_take_all();
-
+    auto queueVal = std::dynamic_pointer_cast<Atom>(valPtr);
     std::vector<std::string> result;
     std::ostringstream ostream;
-    while (!queueVal.empty()) {
-        result.push_back(queueVal.front()->to_short_string());
-        queueVal.pop();
+    for(auto& r: queueVal->getOutgoingSet()){
+        result.push_back(r->to_string());
     }
-
     return result;
 }
 
@@ -114,11 +112,13 @@ void AtomSpaceManager::loadFromSettings(const std::string &fname) {
     fstream >> inputJson;
 
     for(const auto& j : inputJson) {
-        Timer timer;
-        std::cout << "Loading Atomspace " << j["id"] << " in dir " << j["pathDir"];
-        loadDirectory(j["pathDir"], j["id"]);
-        std::cout << "Atomspace " << j["id"] << " loaded in " << timer.elapsed();
-
+        if(j.find("scmFile") != j.end()){ //load from scm file
+            std::cout << "Loading Atomspace " << j["id"] << std::endl;
+            loadAtomSpace(j["scmFile"], j["id"]);
+        } else if(j.find("pathDir") != j.end()){
+            std::cout << "Loading Atomspace " << j["id"] << " in dir " << j["pathDir"];
+            loadDirectory(j["pathDir"], j["id"]);
+        }
     }
 
 }

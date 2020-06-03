@@ -1,3 +1,3 @@
-LINK_LIBRARIES(atomspace atomspace_server_lib)
+LINK_LIBRARIES(atomspace load_scm atomspace_server_lib)
 
 ADD_CXXTEST(AtomSpaceManagerUTest)
