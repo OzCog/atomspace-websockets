@@ -20,13 +20,19 @@ FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
 
 FIND_LIBRARY(BIOSCIENCE_LIB
         NAME libbioscience-types.dylib libbioscience-types.so
-        PATHS /usr/local/lib/opencog
+        PATHS ${CMAKE_INSTALL_PREFIX}/opencog
         NO_DEFAULT_PATH)
+
+FIND_LIBRARY(PERSIST_FILE
+        NAME libload_scm.dylib libload_scm.so
+        PATHS ${CMAKE_INSTALL_PREFIX}/lib/opencog
+        NO_DEFAULT_PATH)
+
 
 #uSocket
 FIND_LIBRARY(uSOCKET_LIB
         NAME uSockets.a
-        PATHS /usr/local/lib NO_DEFAULT_PATH)
+        PATHS ${CMAKE_INSTALL_PREFIX} NO_DEFAULT_PATH)
 
 
 # Set default include paths.
@@ -35,7 +41,8 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}
         ${ATOMSPACE_INCLUDE_DIR}
         ${ZLIB_INCLUDE_DIRS}
         ${LIBUV_LIBRARIES}
-        /usr/local/include/uWebSockets)
+        ${CMAKE_SYSTEM_INCLUDE_PATH}/uWebSockets)
+
 
 TARGET_LINK_LIBRARIES(${BINARY}_lib
         ${COGUTIL_LIBRARIES}
@@ -45,9 +52,8 @@ TARGET_LINK_LIBRARIES(${BINARY}_lib
         ${ATOMSPACE_atomspace_LIBRARY}
         ${ATOMSPACE_value_LIBRARY}
         ${ATOMSPACE_truthvalue_LIBRARY}
-        ${ATOMSPACE_persist_LIBRARY}
+        ${ATOMSPACE_persist_file_LIBRARY}
         ${Boost_LIBRARIES}
-        ${BIOSCIENCE_LIB}
         ${ZLIB_LIBRARIES}
         ${LIBUV}
         ${uSOCKET_LIB}
@@ -61,9 +67,17 @@ TARGET_LINK_LIBRARIES(atom_server
         ${ATOMSPACE_atomspace_LIBRARY}
         ${ATOMSPACE_value_LIBRARY}
         ${ATOMSPACE_truthvalue_LIBRARY}
+        ${PERSIST_FILE}
         ${Boost_LIBRARIES}
-        ${BIOSCIENCE_LIB}
         ${ZLIB_LIBRARIES}
         ${LIBUV}
         ${uSOCKET_LIB}
         nlohmann_json::nlohmann_json)
+
+IF(BIOSCIENCE_LIB)
+    MESSAGE(STATUS "AGI-Bio found.")
+    TARGET_LINK_LIBRARIES(${BINARY}_lib ${BIOSCIENCE_LIB})
+    TARGET_LINK_LIBRARIES(${BINARY}_lib ${BIOSCIENCE_LIB})
+ENDIF()
+
+INSTALL(TARGETS atom_server DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
