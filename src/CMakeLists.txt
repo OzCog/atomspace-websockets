@@ -22,10 +22,6 @@ FIND_LIBRARY(BIOSCIENCE_LIB
         NAME libbioscience-types.dylib libbioscience-types.so
         PATHS ${CMAKE_INSTALL_PREFIX}/lib/opencog
         NO_DEFAULT_PATH)
-FIND_LIBRARY(PERSIST_FILE
-        NAME libload_scm.dylib libload_scm.so
-        PATHS ${CMAKE_INSTALL_PREFIX}/lib/opencog
-        NO_DEFAULT_PATH)
 
 #uSocket
 FIND_LIBRARY(uSOCKET_LIB
@@ -51,7 +47,6 @@ TARGET_LINK_LIBRARIES(${BINARY}_lib
         ${ATOMSPACE_truthvalue_LIBRARY}
         ${ATOMSPACE_persist_file_LIBRARY}
         ${Boost_LIBRARIES}
-        ${PERSIST_FILE}
         ${ZLIB_LIBRARIES}
         ${LIBUV_LIBRARIES}
         ${uSOCKET_LIB}
@@ -67,7 +62,6 @@ TARGET_LINK_LIBRARIES(atom_server
         ${ATOMSPACE_truthvalue_LIBRARY}
         ${ATOMSPACE_persist_file_LIBRARY}
         ${Boost_LIBRARIES}
-        ${PERSIST_FILE}
         ${ZLIB_LIBRARIES}
         ${LIBUV_LIBRARIES}
         ${uSOCKET_LIB}
