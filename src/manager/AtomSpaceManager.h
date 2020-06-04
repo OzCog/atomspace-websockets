@@ -9,6 +9,7 @@
 
 #include <nlohmann/json.hpp>
 #include <string>
+#include <string_view>
 #include <boost/filesystem.hpp>
 
 namespace fs = boost::filesystem;
@@ -33,12 +34,12 @@ public:
 
     bool removeAtomSpace(const std::string& id);
 
-    std::vector<std::string> executePattern(const std::string& id, std::string_view& pattern);
+    std::vector<std::string> executePattern(const std::string& id, std::string_view& pattern) const;
 
     //Load atomspaces from a settings json file
     void loadFromSettings(const std::string& fname);
 
-    std::vector<std::string> getAtomspaces();
+     std::vector<std::string> getAtomspaces() const;
 
     AtomSpacePtr getAtomspace(const std::string& id);
 

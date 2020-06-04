@@ -7,12 +7,14 @@
 #include <opencog/persist/file/fast_load.h>
 #include <stdexcept>
 #include <algorithm>
-
+#include <string>
+#include <fstream>
 
 #include "AtomSpaceManager.h"
 #include "Timer.h"
 
-void AtomSpaceManager::loadAtomSpace(const std::string& fname, const std::string& id) {
+void AtomSpaceManager::loadAtomSpace(const std::string& fname, const std::string& id)
+{
     //Check if the id exists
     auto res = _atomspaceMap.find(id);
     if(res != _atomspaceMap.end()){
@@ -28,7 +30,8 @@ void AtomSpaceManager::loadAtomSpace(const std::string& fname, const std::string
 
 }
 
-void AtomSpaceManager::loadDirectory(const std::string& dirname, const std::string &id) {
+void AtomSpaceManager::loadDirectory(const std::string& dirname, const std::string &id)
+{
     //Check if the directory exists
     fs::path p(dirname);
     AtomSpacePtr atomspace = std::make_shared<AtomSpace>();
@@ -46,7 +49,8 @@ void AtomSpaceManager::loadDirectory(const std::string& dirname, const std::stri
 }
 
 
-bool AtomSpaceManager::removeAtomSpace(const std::string& id) {
+bool AtomSpaceManager::removeAtomSpace(const std::string& id)
+{
     auto res = _atomspaceMap.find(id);
     if(res == _atomspaceMap.end()){
         return false;
@@ -59,7 +63,8 @@ bool AtomSpaceManager::removeAtomSpace(const std::string& id) {
 }
 
 
-std::vector<std::string> AtomSpaceManager::executePattern(const std::string& id, std::string_view& pattern) {
+std::vector<std::string> AtomSpaceManager::executePattern(const std::string& id, std::string_view& pattern) const
+{
     auto res = _atomspaceMap.find(id);
     if(res == _atomspaceMap.end()){
         throw std::runtime_error("An Atomspace with id " + id + " not found");
@@ -86,11 +91,13 @@ std::vector<std::string> AtomSpaceManager::executePattern(const std::string& id,
     return result;
 }
 
-std::vector<std::string> AtomSpaceManager::getAtomspaces() {
+std::vector<std::string> AtomSpaceManager::getAtomspaces() const
+{
     return _atomIds;
 }
 
-AtomSpacePtr AtomSpaceManager::getAtomspace(const std::string &id) {
+AtomSpacePtr AtomSpaceManager::getAtomspace(const std::string &id)
+{
     auto search =  _atomspaceMap.find(id);
     if(search == _atomspaceMap.end()){
         throw std::runtime_error("Atomspace with id " + id + " not found");
@@ -98,7 +105,8 @@ AtomSpacePtr AtomSpaceManager::getAtomspace(const std::string &id) {
     return search->second;
 }
 
-void AtomSpaceManager::loadFromSettings(const std::string &fname) {
+void AtomSpaceManager::loadFromSettings(const std::string &fname)
+{
     std::ifstream fstream(fname);
 
     json inputJson;
