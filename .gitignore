@@ -87,6 +87,7 @@ _deps
 
 # Compiled Static libraries
 *.lai
+*.a
 *.la
 *.lib
 
