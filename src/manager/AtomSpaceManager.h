@@ -10,6 +10,9 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <string_view>
+#include <memory>
+#include <map>
+#include <vector>
 #include <boost/filesystem.hpp>
 
 namespace fs = boost::filesystem;
