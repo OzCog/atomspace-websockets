@@ -31,16 +31,8 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}
 
 
 TARGET_LINK_LIBRARIES(${BINARY}_lib
-        ${COGUTIL_LIBRARIES}
-        ${ATOMSPACE_atomtypes_LIBRARY}
-        ${ATOMSPACE_atombase_LIBRARY}
-        ${ATOMSPACE_atomcore_LIBRARY}
-        ${ATOMSPACE_atomspace_LIBRARY}
-        ${ATOMSPACE_value_LIBRARY}
-        ${ATOMSPACE_truthvalue_LIBRARY}
-        ${ATOMSPACE_load_scm_LIBRARY}
-        ${Boost_LIBRARIES}
-        ${ZLIB_LIBRARIES}
+        ${COGUTIL_libraries}
+        ${ATOMSPACE_libraries}
         nlohmann_json::nlohmann_json
         ${uSOCKET_LIB})
 
