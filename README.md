@@ -74,8 +74,7 @@ This project depends on the following libraries:
    - [AtomSpace](https://github.com/opencog/atomspace)
    - [Boost](https://www.boost.org/)
    - [uWebSockets](https://github.com/uNetworking/uWebSockets)
-        * [libuv](https://github.com/libuv/libuv)
-        * [zlib](https://zlib.net/)
+       * Note: [uSockets](https://github.com/uNetworking/uSockets) library is needed which uWebSockets depends on it. After building the uSockets, you need to copy the static library to a library search path (e.g /usr/local/lib)
    - [nlohmann_json](https://github.com/nlohmann/json)
    - [Agi-bio](https://github.com/opencog/agi-bio) - this is OPTIONAL and will be required if you are working with
     bio related atomspace
