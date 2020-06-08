@@ -17,7 +17,6 @@ FIND_LIBRARY(BIOSCIENCE_LIB
         NAME libbioscience-types.dylib libbioscience-types.so
         PATHS ${CMAKE_INSTALL_PREFIX}/lib/opencog
         NO_DEFAULT_PATH)
-
 #uSocket
 FIND_LIBRARY(uSOCKET_LIB
         NAME uSockets.a

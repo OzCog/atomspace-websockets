@@ -4,6 +4,7 @@
 
 #include <opencog/atoms/base/Handle.h>
 #include <opencog/atoms/base/Node.h>
+#include <opencog/atoms/value/QueueValue.h>
 #include <opencog/persist/file/fast_load.h>
 #include <stdexcept>
 #include <algorithm>
@@ -72,22 +73,37 @@ std::vector<std::string> AtomSpaceManager::executePattern(const std::string& id,
 
     Handle h;
     AtomSpacePtr atomspace = res->second;
-    try {
-        std::string ss(pattern);
-        h = opencog::parseExpression(ss, *atomspace);
-    } catch (std::runtime_error& err) {
-        throw err;
-    }
-    std::cout << "AtomSpace Count - Nodes:  " << atomspace->get_num_nodes() << " Links: " << atomspace->get_num_links() <<
-    std::endl;
-    ValuePtr valPtr = h->execute(atomspace.get());
+    std::string ss(pattern);
+    h = opencog::parseExpression(ss, *atomspace);
 
-    auto queueVal = std::dynamic_pointer_cast<Atom>(valPtr);
     std::vector<std::string> result;
 
-    for(auto& r: queueVal->getOutgoingSet()){
-        result.push_back(r->to_string());
+    if (h->is_executable()){
+
+        ValuePtr valPtr = h->execute(atomspace.get());
+        if (h->get_type() == BIND_LINK || h->get_type() == GET_LINK){
+            auto outgoingSet = std::dynamic_pointer_cast<Atom>(valPtr);
+
+            for(auto& atom : outgoingSet->getOutgoingSet()){
+                result.push_back(atom->to_string());
+            }
+
+        }
+        else if (h->get_type() == QUERY_LINK || h->get_type() == MEET_LINK) {
+            auto queueVal = std::dynamic_pointer_cast<QueueValue>(valPtr)->wait_and_take_all();
+
+            while(!queueVal.empty()){
+                result.push_back(queueVal.front()->to_string());
+                queueVal.pop();
+            }
+        }
     }
+    else { // not a pattern matching query
+        atomspace->remove_atom(h, true);
+        std::cerr << "Only send pattern matching query to execute patterns. " <<
+            ss << " is not a pattern matching query" << std::endl;
+    }
+
     return result;
 }
 

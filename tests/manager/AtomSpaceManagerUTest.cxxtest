@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 #include "../../src/manager/AtomSpaceManager.h"
 #include <cxxtest/TestSuite.h>
+#include <string_view>
 
 using json = nlohmann::json;
 
@@ -21,9 +22,12 @@ public:
     void tearDown() {}
 
     void test_loadFromSettings();
+
+    void test_execute_pattern();
 };
 
-void AtomSpaceManagerUTest::test_loadFromSettings() {
+void AtomSpaceManagerUTest::test_loadFromSettings()
+{
 
     logger().info("BEGIN TEST: %s", __FUNCTION__);
 
@@ -32,6 +36,25 @@ void AtomSpaceManagerUTest::test_loadFromSettings() {
     //Verify the atomspaces are loaded properly
     TS_ASSERT_EQUALS("asp1", _atomSpaceManager.getAtomspaces()[0])
     logger().info("Atomspace size: %d", _atomSpaceManager.getAtomspace("asp1")->get_size());
+
+    logger().info("END TEST: %s", __FUNCTION__);
+}
+
+void AtomSpaceManagerUTest::test_execute_pattern()
+{
+    logger().info("BEGIN TEST: %s", __FUNCTION__);
+
+    std::string_view patt = "(MeetLink\n"
+                            "   (EvaluationLink (Predicate \"is_part\")\n"
+                            "    (List\n"
+                            "      (Concept \"A\")\n"
+                            "      (Variable \"$x\"))))";
+
+    auto result = _atomSpaceManager.executePattern("asp1", patt);
+
+    logger().info("Result size: %d", result.size());
+
+    TS_ASSERT_EQUALS(result.size(), 3)
 
     logger().info("END TEST: %s", __FUNCTION__);
 }
