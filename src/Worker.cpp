@@ -41,5 +41,10 @@ void Worker::work(const AtomSpaceManager &atomManager) {
         });
     }
 
+    _app->get("/atomspaces", [&endpoints](auto* res, auto* req){
+        json j;
+        j["atomspaces"] = endpoints;
+        res->writeHeader("Content-Type", "application/json")->end(j.dump());
+    });
     _app->listen(9001, [](auto *token){}).run();
 }
