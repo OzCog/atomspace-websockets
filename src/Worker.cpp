@@ -16,7 +16,7 @@ void Worker::work(const AtomSpaceManager &atomManager) {
                 .idleTimeout = 0,
                 .maxBackpressure = 1 * 1024 * 1204,
 
-                .open = [&](auto *ws, auto *req) {
+                .open = [&](auto *ws) {
                     std::cout << "Connected to " << id << std::endl;
                 },
                 .message = [&](auto *ws, std::string_view message, uWS::OpCode opCode) {
