@@ -46,5 +46,23 @@ void Worker::work(const AtomSpaceManager &atomManager) {
         j["atomspaces"] = endpoints;
         res->writeHeader("Content-Type", "application/json")->end(j.dump());
     });
+
+    _app->get("/atomspace/:id", [&atomManager](auto* res, auto* req){
+        std::string id(req->getParameter(0));
+        auto atomspace = atomManager.getAtomspace(id);
+        if(atomspace == nullptr){
+            res->writeStatus("404 NOTFOUND")->end("Atomspace with id " + id + "not found");
+        }
+        else {
+            json j;
+            j["id"] = id;
+            j["num_nodes"] = atomspace->get_num_nodes();
+            j["num_links"] = atomspace->get_num_links();
+            j["total"] = atomspace->get_size();
+
+            res->end(j.dump());
+        }
+    });
+
     _app->listen(9001, [](auto *token){}).run();
 }

@@ -44,7 +44,7 @@ public:
 
      std::vector<std::string> getAtomspaces() const;
 
-    AtomSpacePtr getAtomspace(const std::string& id);
+     AtomSpacePtr getAtomspace(const std::string& id) const;
 
 private:
     AtomSpaceMap _atomspaceMap;

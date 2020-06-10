@@ -112,11 +112,11 @@ std::vector<std::string> AtomSpaceManager::getAtomspaces() const
     return _atomIds;
 }
 
-AtomSpacePtr AtomSpaceManager::getAtomspace(const std::string &id)
+AtomSpacePtr AtomSpaceManager::getAtomspace(const std::string &id) const
 {
     auto search =  _atomspaceMap.find(id);
     if(search == _atomspaceMap.end()){
-        throw std::runtime_error("Atomspace with id " + id + " not found");
+        return nullptr;
     }
     return search->second;
 }
