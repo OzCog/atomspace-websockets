@@ -34,9 +34,11 @@ AtomSpacePtr AtomSpaceManager::loadDirectory(const std::string &dirname, const s
     fs::path p(dirname);
     AtomSpacePtr atomspace = std::make_shared<AtomSpace>();
     if (fs::exists(p)) {
-        for (fs::directory_entry &entry : fs::directory_iterator(p)) {
-            std::cout << "Parsing " << entry.path().string() << std::endl;
-            load_file(entry.path().string(), *atomspace);
+        for (fs::directory_entry &entry : fs::recursive_directory_iterator(p)) {
+            if(entry.path().extension() == ".scm") {
+                std::cout << "Parsing " << entry.path().string() << std::endl;
+                load_file(entry.path().string(), *atomspace);
+            }
         }
     } else {
         throw std::runtime_error("No such directory " + dirname);
