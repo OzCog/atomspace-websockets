@@ -137,7 +137,6 @@ void AtomSpaceManager::loadFromSettings(const std::string &fname)
         if(j.find("scmFile") != j.end()){ //load from scm file
             loadAtomSpace(j["scmFile"], j["id"]);
         } else if(j.find("pathDir") != j.end()){
-            std::cout << "Loading Atomspace " << j["id"] << " in dir " << j["pathDir"];
             loadDirectory(j["pathDir"], j["id"]);
         }
         std::cout << "Atomspace " << j["id"] << " Loaded!" << std::endl;
