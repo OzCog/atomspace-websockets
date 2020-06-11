@@ -30,9 +30,9 @@ public:
 
 
 
-    void loadDirectory(const std::string& dirname, const std::string &id);
+    AtomSpacePtr loadDirectory(const std::string& dirname, const std::string &id);
 
-    void loadAtomSpace(const std::string& fname, const std::string& id);
+    AtomSpacePtr loadAtomSpace(const std::string& fname, const std::string& id);
 
 
     bool removeAtomSpace(const std::string& id);
