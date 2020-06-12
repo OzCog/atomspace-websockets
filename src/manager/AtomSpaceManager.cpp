@@ -70,7 +70,16 @@ std::vector<std::string> AtomSpaceManager::executePattern(const std::string &id,
     Handle h;
     AtomSpacePtr atomspace = res->second;
     std::string ss(pattern);
-    h = opencog::parseExpression(ss, *atomspace);
+
+    try {
+        h = opencog::parseExpression(ss, *atomspace);
+    } catch(std::runtime_error &err) {
+        throw err;
+    }
+
+    if(h == nullptr){
+        throw std::runtime_error("Invalid Pattern Matcher query: " + ss);
+    }
 
     std::vector<std::string> result;
 

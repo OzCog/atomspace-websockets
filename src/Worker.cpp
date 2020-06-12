@@ -26,10 +26,16 @@ void Worker::work(const AtomSpaceManager &atomManager) {
                     std::cout << "Connected to " << id << std::endl;
                 },
                 .message = [&](WebSocket<false, true> *ws, std::string_view message, uWS::OpCode opCode) {
-                    for (const auto &res : atomManager.executePattern(id, message)) {
-                        ws->send(res, OpCode::TEXT);
+                    try{
+                        for (const auto &res : atomManager.executePattern(id, message)) {
+                            ws->send(res, OpCode::TEXT);
+                        }
+                        ws->send("eof", OpCode::TEXT);
+                    } catch(std::runtime_error &err){
+                        std::string_view msg(err.what());
+                        std::cerr << msg << std::endl;
+                        ws->send(msg, OpCode::TEXT);
                     }
-                    ws->send("eof", OpCode::TEXT);
 
                 },
                 .drain = [](auto *ws) {
@@ -108,7 +114,7 @@ void Worker::work(const AtomSpaceManager &atomManager) {
         }
     });
 
-    _app->listen(9001, [](auto *token) {}).run();
+    _app->listen("0.0.0.0", 9001, [](auto *token) {}).run();
 }
 
 void Worker::findSimilarNames(AtomSpacePtr& atomspace, std::string &type_name, std::string &name,
