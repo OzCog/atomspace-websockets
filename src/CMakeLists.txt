@@ -17,7 +17,6 @@ FIND_LIBRARY(BIOSCIENCE_LIB
         NAME libbioscience-types.dylib libbioscience-types.so
         PATHS ${CMAKE_INSTALL_PREFIX}/lib/opencog
         NO_DEFAULT_PATH)
-
 #uSocket
 FIND_LIBRARY(uSOCKET_LIB
         NAME uSockets.a
@@ -31,8 +30,8 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}
 
 
 TARGET_LINK_LIBRARIES(${BINARY}_lib
-        ${COGUTIL_libraries}
-        {ATOMSPACE_libraries}
+        ${COGUTIL_LIBRARIES}
+        ${ATOMSPACE_LIBRARIES}
         ${Boost_LIBRARIES}
         ${ZLIB_LIBRARIES}
         nlohmann_json::nlohmann_json

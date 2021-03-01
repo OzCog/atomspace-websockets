@@ -18,11 +18,13 @@ typedef std::shared_ptr<std::thread> ThreadPtr;
 struct PerSocketData {
 };
 
-class Worker {
+class Worker{
+private:
+    static void findSimilarNames(AtomSpacePtr&, std::string& type, std::string& name,
+            std::vector<std::string>& result);
 public:
 
     void work(const AtomSpaceManager& atomManager);
-
     ThreadPtr _thread;
 
 private:
