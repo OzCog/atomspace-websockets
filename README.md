@@ -1,8 +1,14 @@
-# AtomSpace Server
+# Obsolete
+The code here is now obsolete. It has been replaced by "native" support
+in the [CogServer](https://github.com/opencog/cogserver/). A JSON+websoockets
+interface is provided on port 18080. See the websockets demo in the
+[CogServer examples directory.](https://github.com/opencog/cogserver/tree/master/examples)
+The code below was an older, earlier attempt to prove WebSockets.
 
-This is a simple project that provides Websockets access to the OpenCog [AtomSpace](https://github.com/opencog
-/atomspace
-) to execute
+# AtomSpace Websockets Server
+
+This is a simple project that provides Websockets access to the OpenCog 
+[AtomSpace](https://github.com/opencog/atomspace) to execute
  pattern matching queries. It also allows users to create multiple atomspaces and access them separately. Users can
   use a JSON config file to specify the id and the directory containing the atomese code to load. An example config
    looks like the following:
